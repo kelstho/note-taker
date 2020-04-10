@@ -1,31 +1,25 @@
 const fs = require("fs");
 const path = require("path");
 
-const db = JSON.parse(fs.readFileSync("db/db.json", "utf8", (err) => {
-    if (err) {
-        console.log(err);
-    }
-}));
 
 module.exports = (app) => {
-
+    const filePath = "../db/db.json";
     app.get("/api/notes", (req, res) => {
-        res.json(db);
+        res.sendFile(path.join(__dirname, filePath));
     });
 
     app.post("/api/notes", (req, res) => {
-        const read = fs.readFileSync(path.join(__dirname, "../db/db.json"), "utf8");
-
-        const note = {
+        const newNote = {
             title: req.body.title,
             text: req.body.text,
             id: Date.now()
         };
-        console.log(note);
-        const p = JSON.parse(read);
 
-        p.push(note);
-        fs.writeFileSync(path.join(__dirname, "../db/db.json"), JSON.stringify(p), "utf8");
-        res.json(db);
+        const db = JSON.parse(fs.readFileSync(path.join(__dirname, filePath), "utf8"));
+
+        db.push(newNote);
+        fs.writeFileSync(path.join(__dirname, filePath), JSON.stringify(db), "utf8");
+        console.log(db);
+        res.sendFile(path.join(__dirname, filePath));
     });
 };
