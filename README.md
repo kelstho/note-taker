@@ -17,7 +17,7 @@ When the save icon is clicked, the note  will be saved into the list of other sa
 ## Technologies
 Database: MySQL
 
-Frameworks/Libraries: Express, jQuery, Bootstrap
+Frameworks/Libraries: Node, Express, jQuery, Bootstrap
 
 ## Links
 [Deployed Application](https://fierce-plains-84379.herokuapp.com/)
